@@ -1,26 +1,15 @@
 (function($, window, document) {
 
   $.fn.sparkle = function(options) {
-    if (options === "destroy") {
-      if (this.data("sparkle-ids")) {
-        var savedIds = this.data("sparkle-ids");
-
-        for (var i=0; i<savedIds.length; ++i) {
-          window.clearInterval($.sparkleInterval[savedIds[i]]);
-        }
-
-        this.data("sparkle-ids", null);
-      }
-
-      this.find("svg.my-sparkle").remove();
-      return;
+    $.destroySparkle = $.destroySparkle || {};
+    var id = this.data("sparkle-id") || (new Date()).getTime() + Math.random();
+    
+    if (options === "destroy" && id) {
+      $.destroySparkle[id] = true;
+      this.data("sparkle-id", null);
     }
 
-    $.sparkleInterval = $.sparkleInterval || {};
-
     var $this = this;
-    var id = (new Date()).getTime() + Math.random();
-    var ids = this.data("sparkle-ids") || [];
     var settings = $.extend({
       fill: "#fff",
       stroke: "#000",
@@ -72,9 +61,13 @@
           display: "none"
         });
         
-        window.setTimeout(function() {
-          placeStar(false);
-        }, settings.pause);
+        if (!$.destroySparkle[id]) {
+          window.setTimeout(function() {
+            placeStar(false);
+          }, settings.pause);
+        } else {
+          $star.remove();
+        }
       }, settings.duration);
     };
 
@@ -82,12 +75,13 @@
       this.css("position", "relative");
     }
 
-    window.setTimeout(function() {
-      placeStar(true);
-    }, settings.delay);
-    
-    $.merge(ids, [id]);
-    this.data("sparkle-ids", ids);
+    if (!$.destroySparkle[id]) {
+      window.setTimeout(function() {
+        placeStar(true);
+      }, settings.delay);
+
+      this.data("sparkle-id", id);
+    }
 
     return this;
   };
