@@ -12,16 +12,24 @@ $("#main").sparkle({
 });
 ```
 
-You can also add multiple sparkles with different properties to the same element:
+You can also add multiple sparkles (with different properties) to the same element:
 
 ```javascript
 $("#main").sparkle({
+  size: 30
+}).sparkle({
   size: 30
 }).sparkle({
   delay: 1000,
   size: 10,
   pause: 750
 });
+```
+
+The sparkle effect can be removed using the following option:
+
+```javascript
+$("#main").sparkle("destroy");
 ```
 
 See CodePen for the original implementation of the plug-in: http://codepen.io/maxspeicher/pen/zrVKLE
