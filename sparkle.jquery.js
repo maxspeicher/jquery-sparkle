@@ -4,7 +4,7 @@
     $.destroySparkle = $.destroySparkle || {};
     var id = this.data("sparkle-id") || (new Date()).getTime() + Math.random();
     
-    if (options === "destroy") {
+    if (options === "destroy" && this.find("svg").length > 0) {
       $.destroySparkle[id] = true;
       this.data("sparkle-id", null);
     }
