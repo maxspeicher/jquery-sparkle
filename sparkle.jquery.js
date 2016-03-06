@@ -75,7 +75,7 @@
       this.css("position", "relative");
     }
 
-    if (!$.destroySparkle[id]) {
+    if (!$.destroySparkle[id] && options !== "destroy") {
       window.setTimeout(function() {
         placeStar(true);
       }, settings.delay);
