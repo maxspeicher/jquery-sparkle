@@ -20,10 +20,20 @@ $("#main").sparkle({
 }).sparkle({
   size: 30
 }).sparkle({
-  delay: 1000,
   size: 10,
+  delay: 1000,
   pause: 750
 });
+```
+
+Shorthand notation for the above:
+
+```javascript
+$("#main").sparkle([
+  '#fff #000 30',
+  '#fff #000 30',
+  '#fff #000 10 1000 1500 750'
+]);
 ```
 
 The sparkle effect can be removed using the following option:
